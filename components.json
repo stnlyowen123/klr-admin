@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.ts",
+    "css": "src/styles/globals.css",
+    "baseColor": "zinc",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "admin-klr/components",
+    "utils": "admin-klr/lib/utils",
+    "ui": "admin-klr/components/ui",
+    "lib": "admin-klr/lib",
+    "hooks": "admin-klr/hooks"
+  },
+  "iconLibrary": "lucide"
+}
