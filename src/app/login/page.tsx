@@ -41,7 +41,7 @@ export default function LoginPage() {
     <div className="flex items-center justify-center min-h-screen bg-orange-100">
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
         <h1 className="text-2xl font-bold text-center text-orange-500 mb-6">
-          Admin Login
+          KLR RACING - ADMIN LOGIN
         </h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
