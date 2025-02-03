@@ -1,8 +1,14 @@
 /** @type {import("eslint").Linter.Config} */
 const config = {
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": true
+    "project": "./tsconfig.json", // Pastikan ini sesuai dengan file yang ada
+    "sourceType": "module"
   },
   "plugins": [
     "@typescript-eslint",
@@ -56,6 +62,16 @@ const config = {
         ]
       }
     ]
-  }
-}
+  },
+  "ignorePatterns": [
+    "node_modules/",
+    "build/",
+    ".next/",
+    "out/",
+    "public/",
+    "dist/",
+    "**/*.js"
+  ]
+};
+
 module.exports = config;
