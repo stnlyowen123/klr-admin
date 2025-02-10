@@ -130,7 +130,7 @@ export default function AdminDashboard() {
               </tr>
               <tr>
                 <td>Yearly</td>
-                <td>$400,000</td>
+                <td>$400,0001</td>
                 <td>12,000</td>
               </tr>
             </tbody>
