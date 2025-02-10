@@ -126,7 +126,7 @@ export default function AdminDashboard() {
               <tr>
                 <td>Monthly</td>
                 <td>$34,000</td>
-                <td>1020</td>
+                <td>1020s</td>
               </tr>
               <tr>
                 <td>Yearly</td>
