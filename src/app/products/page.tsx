@@ -31,14 +31,15 @@ export default function ProdukPage() {
         } else {
           setError("Failed to fetch products");
         }
-      } catch (err) {
+      } catch (error) {
+        console.error("Error fetching products:", error); // Log error ke console
         setError("Error fetching products");
       } finally {
         setLoading(false);
       }
     }
 
-    fetchProduk();
+    void fetchProduk(); // Explicitly ignore floating promise dengan `void`
   }, []);
 
   if (loading) {
@@ -59,55 +60,55 @@ export default function ProdukPage() {
 
   return (
     <main className="flex min-h-screen flex-col bg-gray-100">
-    {/* Sidebar */}
-    <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+      {/* Sidebar */}
+      <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
 
-    {/* Main Content */}
-    <section className="flex-1 md:ml-64 p-6 space-y-6">
-      {/* Header */}
-      <header className="flex justify-between items-center bg-black text-white px-6 py-4 rounded-lg shadow-md">
-        <button
-          className="md:hidden text-white"
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-        >
-          <FiMenu size={24} />
-        </button>
-        <h1 className="text-2xl font-bold">Products</h1>
-      </header>
+      {/* Main Content */}
+      <section className="flex-1 md:ml-64 p-6 space-y-6">
+        {/* Header */}
+        <header className="flex justify-between items-center bg-black text-white px-6 py-4 rounded-lg shadow-md">
+          <button
+            className="md:hidden text-white"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+          >
+            <FiMenu size={24} />
+          </button>
+          <h1 className="text-2xl font-bold">Products</h1>
+        </header>
 
-      {/* Tabel Produk */}
-      <Card className="rounded-lg shadow-lg border border-gray-200">
-        <CardHeader>
-          <h2 className="text-xl font-semibold text-gray-700">Daftar Produk</h2>
-        </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto">
-          <Table className="min-w-full text-left">
-  <TableHead className="bg-gray-50">
-    <TableRow>
-      <TableCell className="font-semibold text-gray-700 py-2 px-4">Kode Produk</TableCell>
-      <TableCell className="font-semibold text-gray-700 py-2 px-4">Nama</TableCell>
-      <TableCell className="font-semibold text-gray-700 py-2 px-4">Harga Beli</TableCell>
-      <TableCell className="font-semibold text-gray-700 py-2 px-4">Harga Jual</TableCell>
-      <TableCell className="font-semibold text-gray-700 py-2 px-4">Stok</TableCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-    {produk.map((item) => (
-      <TableRow key={item.kode_produk} className="hover:bg-gray-100">
-        <TableCell className="py-2 px-4">{item.kode_produk}</TableCell>
-        <TableCell className="py-2 px-4">{item.nama}</TableCell>
-        <TableCell className="py-2 px-4">Rp {item.harga_beli.toLocaleString()}</TableCell>
-        <TableCell className="py-2 px-4">Rp {item.harga_jual.toLocaleString()}</TableCell>
-        <TableCell className="py-2 px-4">{item.jumlah_stok}</TableCell>
-      </TableRow>
-    ))}
-  </TableBody>
-</Table>
-          </div>
-        </CardContent>
-      </Card>
-    </section>
-  </main>
+        {/* Tabel Produk */}
+        <Card className="rounded-lg shadow-lg border border-gray-200">
+          <CardHeader>
+            <h2 className="text-xl font-semibold text-gray-700">Daftar Produk</h2>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <Table className="min-w-full text-left">
+                <TableHead className="bg-gray-50">
+                  <TableRow>
+                    <TableCell className="font-semibold text-gray-700 py-2 px-4">Kode Produk</TableCell>
+                    <TableCell className="font-semibold text-gray-700 py-2 px-4">Nama</TableCell>
+                    <TableCell className="font-semibold text-gray-700 py-2 px-4">Harga Beli</TableCell>
+                    <TableCell className="font-semibold text-gray-700 py-2 px-4">Harga Jual</TableCell>
+                    <TableCell className="font-semibold text-gray-700 py-2 px-4">Stok</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {produk.map((item) => (
+                    <TableRow key={item.kode_produk} className="hover:bg-gray-100">
+                      <TableCell className="py-2 px-4">{item.kode_produk}</TableCell>
+                      <TableCell className="py-2 px-4">{item.nama}</TableCell>
+                      <TableCell className="py-2 px-4">Rp {item.harga_beli.toLocaleString()}</TableCell>
+                      <TableCell className="py-2 px-4">Rp {item.harga_jual.toLocaleString()}</TableCell>
+                      <TableCell className="py-2 px-4">{item.jumlah_stok}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+    </main>
   );
 }

@@ -25,7 +25,7 @@ export default function AddProducts() {
       try {
         const response = await fetch("/api/produk/last-code");
         const data = await response.json();
-        if (response.ok && data.message === "Success" && data.lastCode) {
+        if (response.ok && data.message === "Success" && data?.lastCode) {
           const nextCode = parseInt(data.lastCode) + 1;
           setFormData((prev) => ({ ...prev, kode_produk: nextCode.toString() }));
         }
@@ -34,7 +34,7 @@ export default function AddProducts() {
       }
     }
 
-    fetchLastProductCode();
+    void fetchLastProductCode(); // ✅ Menggunakan void untuk menghindari floating promises
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +43,7 @@ export default function AddProducts() {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
+    if (e.target.files?.[0]) {
       setImage(e.target.files[0]);
     }
   };

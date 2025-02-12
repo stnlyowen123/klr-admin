@@ -44,42 +44,56 @@ export default function AdminDashboard() {
   const [topCustomers, setTopCustomers] = useState<TopCustomer[]>([]);
 
   useEffect(() => {
-    // Fetch Product Data
-    async function fetchProduk() {
-      const res = await fetch("/api/produk");
-      const data = await res.json();
-      setProduk(data.message === "Success" ? data.data : []);
-    }
-
-    // Fetch Sales Overview Data
-    async function fetchSalesData() {
-      const res = await fetch("/api/sales-overview");
-      const data = await res.json();
-    
-      if (data.message === "Success") {
-        const formattedData = {
-          dates: data.data.map((item: { tanggal: string }) =>
-            new Date(item.tanggal).toLocaleDateString("id-ID", { year: "numeric", month: "long", day: "numeric" })
-          ),
-          totals: data.data.map((item: { total_penjualan: string }) => parseFloat(item.total_penjualan)),
+    async function fetchData() {
+      try {
+        // Fetch Product Data
+        const fetchProduk = async () => {
+          const res = await fetch("/api/produk");
+          const data: { message: string; data: Produk[] } = await res.json();
+          setProduk(data.message === "Success" ? data.data : []);
         };
-    
-        setSalesData(formattedData);
-        console.log("Sales Data Response:", data);
-console.log("Formatted Sales Data:", formattedData);
 
+        // Fetch Sales Overview Data
+        const fetchSalesData = async () => {
+          const res = await fetch("/api/sales-overview");
+          const data: {
+            message: string;
+            data: { tanggal: string; total_penjualan: string }[];
+          } = await res.json();
+
+          if (data.message === "Success") {
+            const formattedData: SalesOverview = {
+              dates: data.data.map((item) =>
+                new Date(item.tanggal).toLocaleDateString("id-ID", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })
+              ),
+              totals: data.data.map((item) => parseFloat(item.total_penjualan)),
+            };
+
+            setSalesData(formattedData);
+            console.log("Sales Data Response:", data);
+            console.log("Formatted Sales Data:", formattedData);
+          }
+        };
+
+        // Fetch Top Customers
+        const fetchTopCustomers = async () => {
+          const res = await fetch("/api/top-customers");
+          const data: { message: string; data: TopCustomer[] } = await res.json();
+          setTopCustomers(data.message === "Success" ? data.data : []);
+        };
+
+        // Jalankan semua fungsi async secara paralel
+        await Promise.all([fetchProduk(), fetchSalesData(), fetchTopCustomers()]);
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
-    }    
-    // Fetch Top Customers
-    async function fetchTopCustomers() {
-      const res = await fetch("/api/top-customers");
-      const data = await res.json();
-      setTopCustomers(data.message === "Success" ? data.data : []);
     }
 
-    fetchProduk();
-    fetchSalesData();
-    fetchTopCustomers();
+    void fetchData();
   }, []);
 
   return (
@@ -102,36 +116,30 @@ console.log("Formatted Sales Data:", formattedData);
           <div className="p-6 bg-white rounded-lg shadow-lg">
             <h2 className="text-xl font-bold mb-4">Sales Overview</h2>
             {salesData ? (
-  <Bar
-    data={{
-      labels: salesData.dates,
-      datasets: [
-        {
-          label: "Total Penjualan",
-          data: salesData.totals,
-          backgroundColor: "rgba(99, 102, 241, 0.7)",
-          borderColor: "rgba(99, 102, 241, 1)",
-          borderWidth: 1,
-        },
-      ],
-    }}
-    options={{
-      responsive: true,
-      plugins: {
-        legend: {
-          position: "top",
-        },
-        title: {
-          display: true,
-          text: "Total Penjualan per Hari",
-        },
-      },
-    }}
-  />
-) : (
-  <p>Loading...</p>
-)}
-
+              <Bar
+                data={{
+                  labels: salesData.dates,
+                  datasets: [
+                    {
+                      label: "Total Penjualan",
+                      data: salesData.totals,
+                      backgroundColor: "rgba(99, 102, 241, 0.7)",
+                      borderColor: "rgba(99, 102, 241, 1)",
+                      borderWidth: 1,
+                    },
+                  ],
+                }}
+                options={{
+                  responsive: true,
+                  plugins: {
+                    legend: { position: "top" },
+                    title: { display: true, text: "Total Penjualan per Hari" },
+                  },
+                }}
+              />
+            ) : (
+              <p>Loading...</p>
+            )}
           </div>
 
           {/* Product List */}
@@ -163,8 +171,6 @@ console.log("Formatted Sales Data:", formattedData);
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        
-
           {/* Top Customers Table */}
           <div className="p-6 bg-white rounded-lg shadow-lg">
             <h2 className="text-xl font-bold mb-4">Pelanggan Ter-Loyal</h2>

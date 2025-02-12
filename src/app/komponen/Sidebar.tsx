@@ -5,7 +5,7 @@ import { Sheet, SheetContent, SheetTrigger } from "../../components/ui/sheet";
 import { Menu, X, Home, Package, Settings, ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
-
+import Image from "next/image";
 type SidebarProps = {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
@@ -36,7 +36,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
         className="hidden md:flex flex-col w-64 bg-gradient-to-b from-black to-orange-600 text-white h-full p-6 gap-6 fixed inset-y-0 left-0 shadow-lg"
       >
         <div className="flex items-center justify-between">
-          <img src="/klr.png" alt="Admin Panel" className="w-auto h-auto" />
+          <Image src="/klr.png" alt="Admin Panel" className="w-auto h-auto" />
         </div>
         <nav className="flex flex-col gap-4 text-lg font-medium">
           {navLinks.map((link) => (
@@ -88,7 +88,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
           className="w-64 bg-gradient-to-b from-primary to-primary-dark text-white flex flex-col gap-6 p-6 shadow-lg"
         >
           <div className="flex items-center justify-between">
-            <img src="/klr.png" alt="Admin Panel" className="w-32 h-auto" />
+            <Image src="/klr.png" alt="Admin Panel" className="w-32 h-auto" />
             <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
               <X className="w-6 h-6 text-white" />
             </Button>
