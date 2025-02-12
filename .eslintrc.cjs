@@ -7,7 +7,9 @@ const config = {
   },
   parser: "@typescript-eslint/parser",
   parserOptions: {
+    ecmaVersion: "latest",
     sourceType: "module",
+    project: "./tsconfig.json", // ✅ Tambahkan ini agar eslint bisa linting berbasis type
   },
   plugins: ["@typescript-eslint", "drizzle"],
   extends: [
@@ -63,7 +65,8 @@ const config = {
     "out/",
     "public/",
     "dist/",
-    "**/*.js",
+    "**/*.js", // Pastikan ini tetap ada, tapi tidak mengabaikan eslintrc.js
+    "eslint.config.js",
   ],
 };
 
