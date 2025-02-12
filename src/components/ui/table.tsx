@@ -1,4 +1,5 @@
-import React from "react"
+"use client"
+import * as React from "react"
 
 import { cn } from "admin-klr/lib/utils"
 

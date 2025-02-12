@@ -1,83 +1,70 @@
 /** @type {import("eslint").Linter.Config} */
 const config = {
-  "env": {
-    "browser": true,
-    "es2021": true,
-    "node": true
+  env: {
+    browser: true,
+    es2021: true,
+    node: true,
   },
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": "./tsconfig.json", // Pastikan ini sesuai dengan file yang ada
-    "sourceType": "module"
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    sourceType: "module",
   },
-  "plugins": [
-    "@typescript-eslint",
-    "drizzle"
-  ],
-  "extends": [
+  plugins: ["@typescript-eslint", "drizzle"],
+  extends: [
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended-type-checked",
-    "plugin:@typescript-eslint/stylistic-type-checked"
+    "plugin:@typescript-eslint/stylistic-type-checked",
   ],
-  "rules": {
+  rules: {
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/consistent-type-imports": [
       "warn",
       {
-        "prefer": "type-imports",
-        "fixStyle": "inline-type-imports"
-      }
+        prefer: "type-imports",
+        fixStyle: "inline-type-imports",
+      },
     ],
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {
-        "argsIgnorePattern": "^_"
-      }
+        argsIgnorePattern: "^_",
+      },
     ],
     "@typescript-eslint/require-await": "off",
     "@typescript-eslint/no-misused-promises": [
       "error",
       {
-        "checksVoidReturn": {
-          "attributes": false
-        }
-      }
+        checksVoidReturn: {
+          attributes: false,
+        },
+      },
     ],
     "drizzle/enforce-delete-with-where": [
       "error",
       {
-        "drizzleObjectName": [
-          "db",
-          "ctx.db"
-        ]
-      }
+        drizzleObjectName: ["db", "ctx.db"],
+      },
     ],
     "drizzle/enforce-update-with-where": [
       "error",
       {
-        "drizzleObjectName": [
-          "db",
-          "ctx.db"
-        ]
-      }
-    ]
+        drizzleObjectName: ["db", "ctx.db"],
+      },
+    ],
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-argument": "off",
   },
-  "ignorePatterns": [
+  ignorePatterns: [
     "node_modules/",
     "build/",
     ".next/",
     "out/",
     "public/",
     "dist/",
-    "**/*.js"
-  ]
+    "**/*.js",
+  ],
 };
 
-module.exports = {
-  rules: {
-    "@typescript-eslint/no-unsafe-assignment": "off",
-    "@typescript-eslint/no-unsafe-member-access": "off",
-    "@typescript-eslint/no-unsafe-argument": "off",
-  },
-};
+module.exports = config;
