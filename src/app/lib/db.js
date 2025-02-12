@@ -8,18 +8,13 @@ export async function fetchProductsWithUsers() {
   await client.connect();
 
   const result = await client.query(`
-    SELECT 
-      products.id AS product_id,
-      products.name AS product_name,
-      products.price,
-      products.stock,
-      users.id AS user_id,
-      users.name AS user_name,
-      users.email AS user_email
-    FROM 
-      products
-    JOIN 
-      users ON products.user_id = users.id;
+   SELECT 
+        produck.kode_produk AS kode_produk,
+        produk.nama AS nama,
+        produk.harga_beli AS harga_beli,
+        produk.harga_jual AS harga_jual
+      FROM 
+        produk
   `);
 
   await client.end();
